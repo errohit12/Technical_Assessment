@@ -1,6 +1,6 @@
 import { Page, Locator } from '@playwright/test';
 
-const CONTACT_URL = 'http://jupiter.cloud.planittesting.com/#/contact';
+const CONTACT_URL = 'https://jupiter.cloud.planittesting.com/#/contact';
 
 export class ContactPage {
   readonly page: Page;
@@ -15,14 +15,14 @@ export class ContactPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.submitButton = page.locator('a:has-text("Submit")');
+    this.submitButton = page.locator('a.btn-contact:has-text("Submit")');
     this.forenameError = page.locator('text=Forename is required');
     this.emailError = page.locator('text=Email is required');
     this.messageError = page.locator('text=Message is required');
-    this.forenameInput = page.locator('input[placeholder="John"]');
-    this.emailInput = page.locator('input[placeholder="john.example@planit.net.au"]');
-    this.messageInput = page.locator('textarea[placeholder="Tell us about it.."]');
-    this.successMessage = page.locator('text=we appreciate your feedback');
+    this.forenameInput = page.locator('#forename');
+    this.emailInput = page.locator('#email');
+    this.messageInput = page.locator('#message');
+    this.successMessage = page.locator('div.alert-success');
   }
 
   async goto() {
@@ -38,6 +38,7 @@ export class ContactPage {
     await this.forenameInput.fill(forename);
     await this.emailInput.fill(email);
     await this.messageInput.fill(message);
+    await this.messageInput.blur();
   }
 
   async submit() {

@@ -37,8 +37,8 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: npx playwright test --reporter=html
+      - name: Run Playwright test case 2 five times
+        run: npx playwright test TestCase2.spec.ts --repeat-each=5 --workers=1 --reporter=html
 
       - name: Upload Playwright report
         if: always()

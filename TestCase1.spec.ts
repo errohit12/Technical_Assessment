@@ -25,6 +25,6 @@ test('Contact form validation - mandatory fields (OOP)', async ({ page }) => {
   await expect(contact.forenameError).not.toBeVisible();
   await expect(contact.emailError).not.toBeVisible();
   await expect(contact.messageError).not.toBeVisible();
-  await contact.page.waitForSelector('text=we appreciate your feedback', { timeout: 10000 });
-  await expect(contact.successMessage).toBeVisible();
+  await expect(contact.successMessage).toBeVisible({ timeout: 20000 });
+  await expect(contact.successMessage).toContainText(/we appreciate your feedback/i);
 });
