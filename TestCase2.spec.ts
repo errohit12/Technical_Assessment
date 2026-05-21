@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ContactPage } from './pages/contactPage';
+import { ContactPage } from './tests/pages/contactPage';
 
 const APP_URL = 'http://jupiter.cloud.planittesting.com';
 
