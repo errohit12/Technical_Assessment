@@ -1,8 +1,3 @@
-import { test, expect } from '@playwright/test';
-import { ContactPage } from './tests/pages/contactPage';
-
-const APP_URL = 'http://jupiter.cloud.planittesting.com';
-
 /**
  * Test Case 2: Contact Form - Successful Submission
  * Application URL: http://jupiter.cloud.planittesting.com
@@ -18,20 +13,29 @@ const APP_URL = 'http://jupiter.cloud.planittesting.com';
  * npx playwright test "Test case 2.spec.ts" --repeat-each=5 --workers=1
  */
 
-test.skip(({ browserName }) => browserName !== 'chromium', 'Run only on chromium');
+import { test, expect } from '@playwright/test';
+import { ContactPage } from './tests/pages/contactPage';
 
-test('Test case 2 - Contact form successful submission', async ({ page }) => {
-  const contactPage = new ContactPage(page);
+const APP_URL = 'http://jupiter.cloud.planittesting.com';
 
-  await contactPage.goto();
-  await contactPage.fillMandatoryFields(
-    'Sarah Johnson',
-    'sarah.johnson@example.com',
-    'Excellent customer service and quality products. Highly recommend!'
-  );
-  await contactPage.submit();
+for (let i = 1; i <= 5; i++) {
 
-  await contactPage.page.waitForSelector('text=we appreciate your feedback', { timeout: 20000 });
-  await expect(contactPage.successMessage).toBeVisible();
-  await expect(contactPage.page.locator('text=« Back')).toBeVisible();
-});
+  test(`Test Case 2 - Run ${i}`, async ({ page }) => {
+    const contactPage = new ContactPage(page);
+
+    await contactPage.goto();
+
+    await contactPage.fillMandatoryFields(
+      'Sarah Johnson',
+      'sarah.johnson@example.com',
+      'Excellent customer service and quality products. Highly recommend!'
+    );
+
+    await contactPage.submit();
+
+    await expect(contactPage.successMessage).toBeVisible({ timeout: 20000 });
+
+    await expect(contactPage.page.locator('text=« Back')).toBeVisible();
+  });
+
+}
