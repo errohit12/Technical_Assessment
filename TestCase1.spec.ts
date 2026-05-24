@@ -5,7 +5,7 @@ const APP_URL = 'http://jupiter.cloud.planittesting.com';
 
 // Application URL: http://jupiter.cloud.planittesting.com
 
-test('Contact form validation - mandatory fields (OOP)', async ({ page }) => {
+test('Contact form validation - mandatory fields', async ({ page }) => {
   const contact = new ContactPage(page);
   await contact.goto();
 
